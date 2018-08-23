@@ -37,12 +37,17 @@ import java.util.Scanner;
  */
 public class Main {
 	
-	static int X, Y;		// 미로의 행렬 사이즈를 입력 받는 전역 변수 (X는 세로, Y는 가로)
-	static int SX, SY;		// 출발점 좌표를 입력 받는 전역 변수
-	static int EX, EY;		// 도착점 좌표를 입력 받는 전역 변수
+	// 미로의 행렬 사이즈를 입력 받는 전역 변수 (X는 세로, Y는 가로)
+	static int X, Y;
+	// 출발점 좌표를 입력 받는 전역 변수
+	static int SX, SY;
+	// 도착점 좌표를 입력 받는 전역 변수
+	static int EX, EY;
 	
-	static char[][] miro = new char[Y+10][X+10];	// 미로판 배열 전역 변수
-	static int[][] visit = new int[Y+10][X+10];		// 미로 방문 여부 저장을 위한 배열 전역 변수
+	// 미로판 배열 전역 변수
+	static char[][] miro = new char[Y+10][X+10];
+	// 미로 방문 여부 저장을 위한 배열 전역 변수
+	static int[][] visit = new int[Y+10][X+10];
 	
 	// 큐 원소에 관한 내부 클래스
 	static class Element {
@@ -56,16 +61,42 @@ public class Main {
 			this.v = v;
 		}
 	}
-	
-	static Element[] Queue = new Element[(Y+10) * (X+10)];		// 큐 전역 변수
-	
-	static int wp, rp;		// 큐의 쓰기 & 읽기 포인터
-	
+	// 큐 전역 변수
+	static Element[] Queue = new Element[(Y+10) * (X+10)];
+	// 큐의 쓰기 & 읽기 위치를 저장하는 포인터 관련 전역 변수
+	static int wp, rp;
 	// 큐에서 꺼낸 원소 기준 상하좌우 탐색을 위한 오프셋 배열 전역 변수 선언 
 	static int[] offsetY = { -1, 1, 0, 0 };
 	static int[] offsetX = { 0, 0, -1, 1 };
 	
-	static int sol = 0;		// 이동 시간 누적합(정답) 출력용 전역 변수
+	// 이동 시간 누적합(정답) 출력용 전역 변수
+	static int sol = 0;
+	
+	/**
+	 * 알고리즘 연산에 필요한 전역 변수 초기화 작업을 진행하는 유틸 메소드
+	 */
+	static void init() {
+		Scanner sc = new Scanner(System.in);
+		
+		// 미로 행렬 사이즈 입력
+		X = sc.nextInt();
+		Y = sc.nextInt();
+		
+		// 출발점 좌표 입력
+		SX = sc.nextInt();
+		SY = sc.nextInt();
+		
+		// 도착점 좌표 입력
+		EX = sc.nextInt();
+		EY = sc.nextInt();
+		
+		// 미로판 구성을 위한 입력
+		for (int i = 1; i <= Y; i++) {
+			miro[i] = ("\0" + sc.next()).toCharArray();
+		}
+		
+		sc.close();
+	}
 	
 	
 	/**
@@ -134,33 +165,15 @@ public class Main {
 	static Element deQueue() {
 		return Queue[rp++];
 	}
-	
 
 	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
 		
-		// 미로 행렬 사이즈 입력
-		X = sc.nextInt();
-		Y = sc.nextInt();
+		init();			// 입력 초기화 작업 진행
 		
-		// 출발점 좌표 입력
-		SX = sc.nextInt();
-		SY = sc.nextInt();
+		sol = BFS();	// 가장 빠른 이동 시간 계산을 위한 너비 우선 탐색 진행
 		
-		// 도착점 좌표 입력
-		EX = sc.nextInt();
-		EY = sc.nextInt();
-		
-		// 미로판 구성을 위한 입력
-		for (int i = 1; i <= Y; i++) {
-			miro[i] = ("\0" + sc.next()).toCharArray();
-		}
-		
-		// 가장 빠른 이동 시간 계산을 위한 너비 우선 탐색 진행
-		sol = BFS();
 		System.out.println(sol);
 		
-		sc.close();
 	}
 
 }
