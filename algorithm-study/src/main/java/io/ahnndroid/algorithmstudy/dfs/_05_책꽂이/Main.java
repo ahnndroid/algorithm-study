@@ -1,5 +1,7 @@
 package io.ahnndroid.algorithmstudy.dfs._05_책꽂이;
 
+import java.util.Scanner;
+
 /**
  * 
 [ 문제 설명 ]
@@ -47,10 +49,56 @@ package io.ahnndroid.algorithmstudy.dfs._05_책꽂이;
  *
  */
 public class Main {
+	
+	static int T;	// 테스트 케이스 개수를 입력 받는 전역 변수 선언
+	static int N;	// 소의 마리수를 입력 받는 전역 변수 선언
+	static int B;	// 책꽂이 높이를 입력 받는 전역 변수 선언
+	static int[] H = new int[20 + 10];	// 소의 키를 담을 배열 전역 변수 선언
+	static int sol = 0x7fffffff;		// 정답을 담을 전역 변수 선언
+	
+	/**
+	 * 
+	 * @param pos : 소의 순번
+	 * @param sum : 소의 키 누적합
+	 */
+	static void DFS(int pos, int sum) {
+		// 1. 종료 조건
+		// 1-1) 소의 키 누적합 sum >= sol이면 반환 후 종료
+		if (sum >= sol) return;
+		
+		// 1-2) 소의 키 누적합이 책꽂이 높이보다 크거나 같으면, sol에 소의 키 누적합을 업데이트하고 반환 후 종료
+		if (pos == N) {
+			if (sum >= B) sol = sum;
+			return;
+		}		
+		
+		// 종료 조건을 회피했다면
+		// 소의 순번을 1 증가시키고 현재까지의 누적합을 담아서 깊이 우선 탐색 진행
+		DFS(pos + 1, sum);
+		
+		// 소의 순번을 1 증가시키고 현재 순번의 소의 키 값을 누적합에 더한 값을 담아 깊이 우선 탐색 진행
+		DFS(pos + 1, H[pos] + sum);
+	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		Scanner sc = new Scanner(System.in);
+		
+		T = sc.nextInt();
+		
+		for (int tc = 1; tc <= T; tc++) {
+			// 주의: 변수에 대한 초기화 필요
+			N = sc.nextInt();
+			B = sc.nextInt();
+			
+			for (int i = 1; i <= N; i++) {
+				H[i] = sc.nextInt();
+			}
+			
+			DFS(1, 1);
+			System.out.println(sol - B);
+		}
+		
+		sc.close();
 	}
 
 }
