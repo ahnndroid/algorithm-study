@@ -1,4 +1,4 @@
-package io.ahnndroid.algorithmstudy._03_토마토;
+package io.ahnndroid.algorithmstudy.bfs._03_토마토;
 
 /**
  * 
@@ -38,10 +38,10 @@ M은 상자의 가로 칸의 수, N은 상자의 세로 칸의 수를 나타낸�
 [ 출력 예시 ]
 8
 
- * @author user
+ * @author ahnndroid
  *
  */
-public class 토마토 {
+public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

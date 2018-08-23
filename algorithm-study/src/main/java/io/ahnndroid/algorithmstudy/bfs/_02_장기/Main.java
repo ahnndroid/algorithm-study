@@ -1,4 +1,4 @@
-package io.ahnndroid.algorithmstudy._02_장기;
+package io.ahnndroid.algorithmstudy.bfs._02_장기;
 
 /**
  * 
@@ -23,10 +23,10 @@ N×M장기판에 졸 한 개와 말 한 개가 놓여 있다.
 [ 출력 예시 ]
 2
 
- * @author user
+ * @author ahnndroid
  *
  */
-public class 장기 {
+public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
